@@ -8,7 +8,27 @@ $connection = $connection; // Variable de la conexión que está en "config/data
 $controller = new ApiController($connection);
 $player_time_controller = new PlayerTimeController($connection);
 $awards_controller = new AwardsController($connection);
+// Permitir solicitudes desde cualquier origen
+header("Access-Control-Allow-Origin: *");
 
+// Permitir solicitudes con métodos específicos (GET, POST, etc.)
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+
+// Permitir encabezados personalizados (si es necesario)
+header("Access-Control-Allow-Headers: Authorization, Content-Type");
+
+// Permitir que las cookies se incluyan en las solicitudes (si es necesario)
+header("Access-Control-Allow-Credentials: true");
+
+// Otros encabezados CORS opcionales
+header("Access-Control-Max-Age: 86400"); // Caché preflight por 1 día
+// Verificar si es una solicitud OPTIONS y responder con éxito
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+// Resto del códig
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 $requestUri = $_SERVER['REQUEST_URI'];

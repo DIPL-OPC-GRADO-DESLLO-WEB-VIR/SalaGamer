@@ -4,6 +4,7 @@ import Footer from "./components/Footer"
 import Home from "./Pages/Home"
 import FormRegister from "./Pages/FormRegister"
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import REACT_APP_API_URL from ".env"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
