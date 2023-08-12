@@ -9,7 +9,6 @@ export default function FormRegisterClient() {
   // const url = import.meta.env.REACT;
   // console.log(process.env['REACT_APP_API_URL'])
   // console.log(process.env.REACT_APP_API_URl)
-  console.log(url)
   // const url = "http://localhost";
   const { data } = UseFetch(`${url}api/users`, null);
   const [formData, setFormData] = useState({
@@ -20,10 +19,6 @@ export default function FormRegisterClient() {
     "fk_tipo_user": "1",
     "passworld": null
   });
-  function enviar() {
-    console.log("hola");
-    console.log(data)
-  }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -32,9 +27,18 @@ export default function FormRegisterClient() {
     // Aquí puedes utilizar los valores de formData como desees
     console.log(formData);
     axios.post(`${url}api/users`, formData).then((result) => {
-      console.log(result)
-    }).catch((err) => {
 
+    }).catch((err) => {
+      setFormData(
+        {
+          "id": "1",
+          "nombres": "",
+          "email": "",
+          "celular": "",
+          "fk_tipo_user": "1",
+          "passworld": null
+        }
+      )
     });
     // UseFetch("api/users", "POST", formData)
   };
@@ -87,8 +91,8 @@ export default function FormRegisterClient() {
               </Form.Group> */}
 
               <Form.Group >
-                <Col sm={{ span: 10, offset: 2 }}>
-                  <Button type="submit" >Sign in</Button>
+                <Col sm={{ span: 10 }}>
+                  <Button type="submit" >Registrarse</Button>
                 </Col>
               </Form.Group>
             </Form>

@@ -25,6 +25,9 @@ export default function Header() {
             <NavLink to="/FormRegister" >
               <Button variant="info">Crear</Button>{' '}
             </NavLink>
+            <NavLink to="/LoginPage" >
+              <Button variant="info">Login</Button>{' '}
+            </NavLink>
           </Navbar.Text>
         </Navbar.Collapse>
       </Navbar>

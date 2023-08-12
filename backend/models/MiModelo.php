@@ -134,4 +134,59 @@ class MiModelo
             echo json_encode(['error' => $e->getMessage()]);
         }
     }
+    function validarToken($token)
+    {
+        // Obtener la fecha actual
+        $fechaActual = date('Y-m-d H:i:s');
+
+        // Verificar si el token existe y no ha expirado
+        $query = "SELECT * FROM usuarios WHERE token = '$token' AND fecha_expiracion > '$fechaActual'";
+        $result = $this->connection->query($query);
+        if (COUNT($result) > 0) {
+            return true; // Token válido y no ha expirado
+        } else {
+            return false; // Token inválido o ha expirado
+        }
+    }
+    function iniciarSesion($datos)
+    {
+        $email = $this->connection->real_escape_string($datos['email']);
+        $passworld = $this->connection->real_escape_string($datos['password']);
+        // Verificar las credenciales del usuario en la base de datos
+        $query = "SELECT * FROM user WHERE email = '$email' AND passworld = '$passworld'";
+        $result = $this->connection->query($query);
+        if ($result->num_rows > 0) {
+            // Credenciales válidas, generar y guardar el token
+            $token = $this->generarToken();
+            $fechaExpiracion = $this->calcularFechaExpiracion(); // Puedes usar una función para calcular la fecha de expiración
+
+            $query = "UPDATE user SET token = '$token', fecha_token = '$fechaExpiracion' WHERE email= '$email'";
+            $result = $this->connection->query($query);
+            if ($result) {
+                return $token; // Inicio de sesión exitoso, devuelve el token
+            } else {
+                return false; // Error al guardar el token
+            }
+        } else {
+            return false; // Credenciales inválidas
+        }
+    }
+    # la función  uniqid()  para generar un token único basado en la hora actual
+    function generarToken()
+    {
+        $token = uniqid();
+        return $token;
+    }
+    /*
+        La función  calcularFechaExpiracion()  se encarga de determinar la fecha de expiración para el token.
+         Esto dependerá de tus requisitos y políticas de seguridad.
+        Por ejemplo, podrías establecer una duración de validez para el token, como 1 hora o 24 horas.
+        Aquí tienes un ejemplo que utiliza la función  date()  para calcular la fecha de expiración 1 hora después del momento actua 
+    */
+    function calcularFechaExpiracion()
+    {
+        $fechaActual = date('Y-m-d H:i:s');
+        $fechaExpiracion = date('Y-m-d H:i:s', strtotime('+1 hour', strtotime($fechaActual)));
+        return $fechaExpiracion;
+    }
 }

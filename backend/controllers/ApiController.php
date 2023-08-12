@@ -40,6 +40,30 @@ class ApiController
             echo json_encode(['message' => 'Error al insertar los datos']);
         }
     }
+    public function Login()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo json_encode(['message' => 'Método no permitido']);
+            return;
+        }
+        $data = json_decode(file_get_contents('php://input'), true);
+        // print_r($data);
+        // die($data);
+        if (empty($data) || !isset($data['email']) || !isset($data['password'])) {
+            http_response_code(400);
+            echo json_encode(['message' => 'Datos incompletos']);
+            return;
+        }
+        $token = $this->model->iniciarSesion($data);
+        if (!empty($token)) {
+            http_response_code(201);
+            echo json_encode(['message' => "Se genero el token $token", "token" => $token]);
+        } else {
+            http_response_code(500);
+            echo json_encode(['message' => 'Error al insertar los datos']);
+        }
+    }
     public function UpdateUser()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {

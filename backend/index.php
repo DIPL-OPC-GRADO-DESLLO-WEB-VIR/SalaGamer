@@ -55,6 +55,9 @@ switch ($requestMethod) {
         if ($requestUri === '/api/users') {
             $controller->insertData();
         }
+        if ($requestUri === '/api/login') {
+            $controller->Login();
+        }
         if ($requestUri === '/api/player_time') {
             $player_time_controller->insertData();
         }
