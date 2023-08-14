@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
+import Container from '../components/Container';
 export default function HomePerfilPage() {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
-    console.log(token)
     useEffect(() => {
         if (!token) {
             return navigate("/")
@@ -15,6 +15,8 @@ export default function HomePerfilPage() {
 
     }
     return (
-        <div>HomePerfilPage</div>
+        <Container>
+            <h1>Hola</h1>
+        </Container>
     )
 }

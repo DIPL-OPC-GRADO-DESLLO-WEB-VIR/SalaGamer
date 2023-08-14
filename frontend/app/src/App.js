@@ -5,6 +5,8 @@ import Home from "./Pages/Home"
 import LoginPage from "./Pages/LoginPage"
 import FormRegister from "./Pages/FormRegister"
 import HomePerfilPage from './Pages/HomePerfilPage';
+import CrearProductoPage from './Pages/CrearProductoPage';
+import PremiosPage from './Pages/PremiosPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import REACT_APP_API_URL from ".env"
 import { BrowserRouter, Route, Routes, Redirect } from "react-router-dom";
@@ -13,13 +15,15 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        <Header token={token} />
         <Routes>
           <Route path="/Inicio" element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path="/FormRegister" element={<FormRegister />} />
           <Route path="/LoginPage" element={<LoginPage />} />
           <Route path="/HomePerfilPage" element={<HomePerfilPage />} />
+          <Route path="/CrearProductoPage" element={<CrearProductoPage />} />
+          <Route path="/PremiosPage" element={<PremiosPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

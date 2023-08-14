@@ -11,7 +11,7 @@ class Awards
 
     public function getAllData()
     {
-        $query = "SELECT base64,point FROM awards ";
+        $query = "SELECT id, name_award, point, base64 FROM awards WHERE active = 1 ";
         $result = $this->connection->query($query);
 
         $data = array();
@@ -23,14 +23,28 @@ class Awards
 
         return $data;
     }
+    public function getAllDataFilter($name)
+    {
+        $query = "SELECT id, name_award, point, base64 FROM awards WHERE active = 1 AND name_award LIKE '{$name}%'";
+        $result = $this->connection->query($query);
 
+        $data = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+
+        return $data;
+    }
     public function insertData($datos)
     {
         try {
             $base64 = $this->connection->real_escape_string($datos['base64']);
             $point = $this->connection->real_escape_string($datos['point']);
-            $stmt = $this->connection->prepare("INSERT INTO awards (base64, point) VALUES (?, ?)");
-            $stmt->bind_param("si", $base64, $point);
+            $name_award = $this->connection->real_escape_string($datos['name_award']);
+            $stmt = $this->connection->prepare("INSERT INTO awards (base64, point, name_award) VALUES (?, ?, ?)");
+            $stmt->bind_param("sis", $base64, $point, $name_award);
             $stmt->execute();
             $stmt->close();
 
@@ -44,9 +58,10 @@ class Awards
         try {
             $base64 = $this->connection->real_escape_string($datos['base64']);
             $point = $this->connection->real_escape_string($datos['point']);
+            $name_award = $this->connection->real_escape_string($datos['name_award']);
             $id = $this->connection->real_escape_string($datos['id']);
-            $stmt = $this->connection->prepare("UPDATE awards SET base64= '$base64', point= ? WHERE id= ? ");
-            $stmt->bind_param("ii", $point, $id);
+            $stmt = $this->connection->prepare("UPDATE awards SET base64= '$base64', point= ?, name_award=?  WHERE id= ? ");
+            $stmt->bind_param("isi", $point, $name_award, $id);
             $stmt->execute();
             $stmt->close();
 

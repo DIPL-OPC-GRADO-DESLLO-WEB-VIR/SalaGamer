@@ -50,6 +50,15 @@ switch ($requestMethod) {
         if ($requestUri_array[0] === '/api/wards') {
             $awards_controller->getAllData();
         }
+        if ($requestUri_array[0] === '/api/wards_filter') {
+            // Obtener los parámetros enviados a través de la URL
+            $queryParams = array();
+            if (strpos($requestUri, '?') !== false) {
+                $queryString = parse_url($requestUri, PHP_URL_QUERY);
+                parse_str($queryString, $queryParams);
+            }
+            $awards_controller->getAllDataFilter($queryParams['name']);
+        }
         break;
     case 'POST':
         if ($requestUri === '/api/users') {

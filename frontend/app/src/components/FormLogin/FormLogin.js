@@ -23,9 +23,9 @@ const LoginForm = () => {
       console.log(response.data);
       console.log(response.status);
       if (response.status == 201) {
-        console.log("hola mac")
         localStorage.setItem("token", response.data.token)
-        navigate("/");
+        // navigate("/HomePerfilPage");
+        window.location.href = '/HomePerfilPage';
       }
     } catch (error) {
       // Aquí puedes manejar el error de la solicitud POST

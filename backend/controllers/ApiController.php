@@ -61,7 +61,7 @@ class ApiController
             echo json_encode(['message' => "Se genero el token $token", "token" => $token]);
         } else {
             http_response_code(500);
-            echo json_encode(['message' => 'Error al insertar los datos']);
+            echo json_encode(['message' => 'Error al iniciar session']);
         }
     }
     public function UpdateUser()

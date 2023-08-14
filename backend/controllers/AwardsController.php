@@ -16,6 +16,12 @@ class AwardsController
         echo json_encode($data);
     }
 
+    public function getAllDataFilter($name)
+    {
+        $data = $this->model->getAllDataFilter($name);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
     public function insertData()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
