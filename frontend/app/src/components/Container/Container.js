@@ -12,7 +12,7 @@ export default function Container_sala({ children }) {
     return (
         <>
             {isLoading ? (
-                <Container>
+                <Container className="p-3 mb-2 bg-light text-dark">
                     <div class="d-flex text-dange justify-content-center">
                         <div class="spinner-grow  text-danger m-5" role="status">
                             {/* <span class="visually-hidden">Loading...</span> */}
