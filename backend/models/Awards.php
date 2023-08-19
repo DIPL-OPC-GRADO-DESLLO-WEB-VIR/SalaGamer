@@ -37,6 +37,20 @@ class Awards
 
         return $data;
     }
+    public function getAllDataId($id)
+    {
+        $query = "SELECT id, name_award, point, base64 FROM awards WHERE active = 1 AND id = '$id'";
+        $result = $this->connection->query($query);
+
+        $data = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+
+        return $data;
+    }
     public function insertData($datos)
     {
         try {

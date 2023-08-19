@@ -3,9 +3,9 @@ import { Table, Button, Modal, Form } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
 export default function PremiosTable({ setIsLoading }) {
-
+  const navigate = useNavigate();
   const [awards, setAwards] = useState([]);
   const [selectedAward, setSelectedAward] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -39,6 +39,7 @@ export default function PremiosTable({ setIsLoading }) {
 
   const handleEditAward = (award) => {
     // Lógica para editar el awardo
+    navigate(`/UpdatePremiosPage/${award.id}`);
     console.log('Editar awardo:', award);
   };
 

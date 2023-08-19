@@ -12,8 +12,12 @@ class MiModelo
 
     public function getAllData()
     {
-        $query = "SELECT nombres,email,celular,user_type,passworld,fecha_registro FROM user
-                    LEFT JOIN user_type ut ON user.fk_tipo_user= ut.id";
+        $query = "SELECT user.id, nombres, email, celular, user_type,COALESCE(SUM(hour_played), 0) hour_played FROM user
+                    LEFT JOIN user_type ut ON user.fk_tipo_user= ut.id
+                    LEFT JOIN player_time pt ON user.id = pt.fk_id_player AND pt.active = 1 AND NOW() <= pt.expiration_date
+                    WHERE user.fk_tipo_user != 2
+                    GROUP BY nombres,email,celular,user_type
+                    ";
         $result = $this->connection->query($query);
 
         $data = array();

@@ -59,6 +59,15 @@ switch ($requestMethod) {
             }
             $awards_controller->getAllDataFilter($queryParams['name']);
         }
+        if ($requestUri_array[0] === '/api/wards_get') {
+            // Obtener los parámetros enviados a través de la URL
+            $queryParams = array();
+            if (strpos($requestUri, '?') !== false) {
+                $queryString = parse_url($requestUri, PHP_URL_QUERY);
+                parse_str($queryString, $queryParams);
+            }
+            $awards_controller->getAllDataId($queryParams['id']);
+        }
         break;
     case 'POST':
         if ($requestUri === '/api/users') {

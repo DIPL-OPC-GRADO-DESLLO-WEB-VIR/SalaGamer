@@ -1,11 +1,12 @@
 import React from "react";
+import './Footer.css'
 import { Col, Container, Row } from "react-bootstrap";
 export default function Footer() {
   return (
     <>
 
 
-      <footer className="p-3 mb-2 bg-info text-white">
+      {/* <footer className="p-3 mb-2 bg-info text-white">
         <Container>
           <Row>
             <Col>
@@ -19,6 +20,6 @@ export default function Footer() {
             </Col>
           </Row>
         </Container>
-      </footer>
+      </footer> */}
     </>);
 }

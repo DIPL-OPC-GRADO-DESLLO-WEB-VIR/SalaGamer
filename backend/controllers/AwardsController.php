@@ -22,6 +22,12 @@ class AwardsController
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+    public function getAllDataId($id)
+    {
+        $data = $this->model->getAllDataId($id);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
     public function insertData()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

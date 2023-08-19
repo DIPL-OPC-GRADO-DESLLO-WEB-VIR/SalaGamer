@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Button, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import logo from '../../assets/img/consola.png';
 import { NavLink } from 'react-router-dom';
+import './Header.css'
 
 export default function Header() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -24,7 +25,7 @@ export default function Header() {
   })
   return (
     <>
-      <Navbar bg="dark" variant="dark">
+      <Navbar variant="dark" className='bd-navbar'>
         <NavLink to="/">
           <Navbar.Brand>
             <img

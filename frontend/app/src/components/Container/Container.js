@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Spinner } from 'react-bootstrap';
-
 export default function Container_sala({ children }) {
     const [isLoading, setIsLoading] = useState(true);
 

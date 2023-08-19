@@ -1,0 +1,7 @@
+/* Agrega un mínimo de altura al footer */
+footer {
+  min-height: 100px; /* Ajusta la altura según tus necesidades */
+  background-color: #f0f0f0; /* Color de fondo del footer */
+  padding: 20px;
+  /* Otros estilos si es necesario */
+}
