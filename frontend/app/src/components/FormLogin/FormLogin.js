@@ -25,7 +25,7 @@ const LoginForm = () => {
       if (response.status == 201) {
         localStorage.setItem("token", response.data.token)
         // navigate("/HomePerfilPage");
-        window.location.href = '/HomePerfilPage';
+        window.location.href = '/';
       }
     } catch (error) {
       // Aquí puedes manejar el error de la solicitud POST

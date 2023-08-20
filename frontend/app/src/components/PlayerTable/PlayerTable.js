@@ -93,7 +93,7 @@ export default function PlayerTable() {
 
       <Card.Body>
         <Card.Title>
-          PlayerTable
+          Jugadores 👾
         </Card.Title>
         <Table striped bordered hover>
           <thead>

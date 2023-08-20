@@ -48,7 +48,7 @@ export default function Header() {
 
             </NavLink> */}
             <Nav className="mr-auto">
-              <Nav.Link href="/HomePerfilPage">Home</Nav.Link>
+              {/* <Nav.Link href="/HomePerfilPage">Home</Nav.Link> */}
               {/* <Nav.Link href="#features">Features</Nav.Link> */}
               {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
 

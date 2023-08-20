@@ -9,7 +9,7 @@ export default function HomePerfilPage() {
             return navigate("/")
 
         }
-    }, [])
+    },)
     if (!token) {
         return navigate("/")
 
