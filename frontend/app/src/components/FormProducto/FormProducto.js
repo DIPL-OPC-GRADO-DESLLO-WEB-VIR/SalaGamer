@@ -37,7 +37,8 @@ export default function FormProducto() {
         name_award: productName,
         base64: imageBase64,
       });
-      if (response.status == 201) {
+      console.log(response);
+      if (response.status === 201) {
         // navigate("/HomePerfilPage");
         MySwal.fire({
           icon: 'success',
@@ -45,12 +46,29 @@ export default function FormProducto() {
           text: 'Se agrego un nuevo premio!',
 
         })
+
         setProductName('');
         setHoras_puntos('');
         setImageBase64('');
       }
+      if (response.status === 400) {
+        // navigate("/HomePerfilPage");
+        MySwal.fire({
+          warning: 'warning',
+          title: 'Premios',
+          text: response.data.message,
+
+        })
+      }
     } catch (error) {
       console.error(error);
+      if (error.response && error.response.status === 400) {
+        MySwal.fire({
+          icon: 'warning',
+          title: '!Alerta El premio!' + productName,
+          text: error.response.data.message || 'Error 400: Bad Request',
+        });
+      }
     }
     // MySwal.fire({
     //   icon: 'error',

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Modal, Form } from 'react-bootstrap';
+import { FaRegTrashAlt, FaEdit, FaRegImage } from "react-icons/fa";
+import { Table, Button, Modal, Form, Card } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import axios from 'axios';
@@ -76,47 +77,55 @@ export default function PremiosTable({ setIsLoading }) {
   };
   return (
     <>
-      <Form onSubmit={handleSearch}>
-        <Form.Group controlId="searchTerm">
-          <Form.Control type="text" placeholder="Buscar por nombre" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-          {/* <Form.Control type="text" placeholder="Buscar por nombre" value={searchTerm} onClick={handleClick} /> */}
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Buscar
-        </Button>
-      </Form>
+      <Card>
+        <Card.Body>
+          <Card.Title>Lista Premios 🏆</Card.Title>
+          <Form onSubmit={handleSearch}>
+            <Form.Group controlId="searchTerm">
+              <Form.Control type="text" placeholder="Buscar por nombre" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+              {/* <Form.Control type="text" placeholder="Buscar por nombre" value={searchTerm} onClick={handleClick} /> */}
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Buscar
+            </Button>
+          </Form>
 
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre de Awardo</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {awards.map((award) => (
-            <tr key={award.id}>
-              <td>{award.id}</td>
-              <td>{award.name_award}</td>
-              <td>
-                <Button variant="primary" onClick={() => handleViewImage(award)}>{' '}
-                  Ver Imagen
-                </Button>
-                <Button variant="warning" onClick={() => handleEditAward(award)}>{' '}
-                  Editar
-                </Button>
-                <Button variant="danger" onClick={() => handleDeleteAward(award)}>{' '}
-                  Eliminar
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre de Awardo</th>
+                <th>Horas</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {awards.map((award) => (
+                <tr key={award.id}>
+                  <td>{award.id}</td>
+                  <td>{award.name_award}</td>
+                  <td>{award.point}</td>
+                  <td>
+                    <Button variant="primary" onClick={() => handleViewImage(award)} data-toggle="tooltip" data-placement="top" title="Ver imagen">{' '}
+                      <FaRegImage />
+                    </Button>
+                    <Button variant="warning" onClick={() => handleEditAward(award)} data-toggle="tooltip" data-placement="top" title="Editar">{' '}
+                      <FaEdit />
+                    </Button>
+                    <Button variant="danger" onClick={() => handleDeleteAward(award)} data-toggle="tooltip" data-placement="top" title="Eliminar" >{' '}
+                      <FaRegTrashAlt />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Card.Body>
+      </Card>
+
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header >
           <Modal.Title>{selectedAward && (selectedAward.name_award)}</Modal.Title>
         </Modal.Header>
         <Modal.Body>

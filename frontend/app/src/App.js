@@ -9,6 +9,8 @@ import HomePerfilPage from './Pages/HomePerfilPage';
 import CrearProductoPage from './Pages/CrearProductoPage';
 import PremiosPage from './Pages/PremiosPage';
 import UpdatePremiosPage from './Pages/UpdatePremiosPage';
+import PlayerPage from './Pages/PlayerPage';
+import AwardxPlayer from './Pages/AwardxPlayer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import REACT_APP_API_URL from ".env"
 import { BrowserRouter, Route, Routes, Redirect } from "react-router-dom";
@@ -27,6 +29,8 @@ function App() {
           <Route path="/CrearProductoPage" element={<CrearProductoPage />} />
           <Route path="/PremiosPage" element={<PremiosPage />} />
           <Route path="/UpdatePremiosPage/:id" element={<UpdatePremiosPage />} />
+          <Route path="/AwardxPlayer/:id/:hour/:name" element={<AwardxPlayer />} />
+          <Route path="/PlayerPage" element={<PlayerPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -60,9 +60,13 @@ class Awards
             $stmt = $this->connection->prepare("INSERT INTO awards (base64, point, name_award) VALUES (?, ?, ?)");
             $stmt->bind_param("sis", $base64, $point, $name_award);
             $stmt->execute();
-            $stmt->close();
 
+            $insertedId = $this->connection->insert_id; // Obtener el ID generado
+            // print_r($insertedId);
+            $stmt->close();
             return true;
+
+            return $insertedId; // Retornar el ID generado
         } catch (Exception $e) {
             echo json_encode(['error' => $e->getMessage()]);
         }

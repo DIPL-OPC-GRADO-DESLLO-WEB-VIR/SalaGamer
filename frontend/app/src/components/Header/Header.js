@@ -51,9 +51,14 @@ export default function Header() {
               <Nav.Link href="/HomePerfilPage">Home</Nav.Link>
               {/* <Nav.Link href="#features">Features</Nav.Link> */}
               {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
+
+              <NavDropdown title="Jugadores" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/PlayerPage">Jugadores</NavDropdown.Item>
+                <NavDropdown.Item href="/FormRegister">Crear Jugador</NavDropdown.Item>
+              </NavDropdown>
               <NavDropdown title="Premios" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/CrearProductoPage">Crear Premios</NavDropdown.Item>
                 <NavDropdown.Item href="/PremiosPage">Premios</NavDropdown.Item>
+                <NavDropdown.Item href="/CrearProductoPage">Crear Premios</NavDropdown.Item>
               </NavDropdown>
             </Nav>
 

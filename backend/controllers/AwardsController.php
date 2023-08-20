@@ -30,6 +30,8 @@ class AwardsController
     }
     public function insertData()
     {
+        $longitud_base64 = 60983;
+
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
             echo json_encode(['message' => 'Método no permitido']);
@@ -41,7 +43,12 @@ class AwardsController
             echo json_encode(['message' => 'Datos incompletos']);
             return;
         }
-
+        // print_r(strlen($data['base64']));
+        if (strlen($data['base64']) > $longitud_base64) {
+            http_response_code(400);
+            echo json_encode(['message' => 'El valor de imagen excede la longitud máxima, comprima la imagen']);
+            return;
+        }
         if ($this->model->insertData($data)) {
             http_response_code(201);
             echo json_encode(['message' => 'Datos insertados correctamente']);
@@ -63,7 +70,11 @@ class AwardsController
             echo json_encode(['message' => 'Datos incompletos']);
             return;
         }
-
+        if (strlen($data['base64']) > 255) {
+            http_response_code(400);
+            echo json_encode(['message' => 'El valor de imagen excede la longitud máxima, comprima la imagen']);
+            return;
+        }
         if ($this->model->UpdateData($data)) {
             http_response_code(201);
             echo json_encode(['message' => 'Datos actualizados correctamente']);
