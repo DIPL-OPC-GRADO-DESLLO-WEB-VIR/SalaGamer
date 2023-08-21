@@ -25,7 +25,7 @@ class Awards
     }
     public function getAllDataFilter($name)
     {
-        $query = "SELECT id, name_award, point, base64 FROM awards WHERE active = 1 AND name_award LIKE '{$name}%'";
+        $query = "SELECT id, name_award, point, base64 FROM awards WHERE active = 1 AND name_award LIKE '%{$name}%'";
         $result = $this->connection->query($query);
 
         $data = array();
@@ -91,7 +91,7 @@ class Awards
     public function DeleteData($id)
     {
         try {
-            $stmt = $this->connection->prepare("DELETE FROM awards  WHERE id= ?");
+            $stmt = $this->connection->prepare("UPDATE awards SET  active = 0  WHERE id= ?");
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $stmt->close();

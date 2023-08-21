@@ -3,11 +3,13 @@ require_once './config/database.php';
 require_once './controllers/ApiController.php';
 require_once './controllers/PlayerTimeController.php';
 require_once './controllers/AwardsController.php';
+require_once './controllers/Player_x_awardsController.php';
 
 $connection = $connection; // Variable de la conexión que está en "config/database.php"
 $controller = new ApiController($connection);
 $player_time_controller = new PlayerTimeController($connection);
 $awards_controller = new AwardsController($connection);
+$player_x_awardsController = new Player_x_awardsController($connection);
 // Permitir solicitudes desde cualquier origen
 header("Access-Control-Allow-Origin: *");
 
@@ -81,6 +83,9 @@ switch ($requestMethod) {
         }
         if ($requestUri === '/api/wards') {
             $awards_controller->insertData();
+        }
+        if ($requestUri === '/api/player_x_awards') {
+            $player_x_awardsController->insertData();
         }
         break;
     case 'PUT':

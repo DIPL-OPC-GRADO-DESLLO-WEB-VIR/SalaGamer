@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaRegTrashAlt, FaEdit, FaRegImage } from "react-icons/fa";
-import { Table, Button, Modal, Form, Card } from 'react-bootstrap';
+import { Table, Button, Modal, Form, Card, Row, Col } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import axios from 'axios';
@@ -80,14 +80,24 @@ export default function PremiosTable({ setIsLoading }) {
       <Card>
         <Card.Body>
           <Card.Title>Lista Premios 🏆</Card.Title>
+          <br />
           <Form onSubmit={handleSearch}>
-            <Form.Group controlId="searchTerm">
-              <Form.Control type="text" placeholder="Buscar por nombre" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-              {/* <Form.Control type="text" placeholder="Buscar por nombre" value={searchTerm} onClick={handleClick} /> */}
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Buscar
-            </Button>
+            <Row className="align-items-center">
+              <Col>
+                <Form.Control
+                  className="mb-2"
+                  id="inlineFormInput"
+                  placeholder="Buscar por nombre"
+                  value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </Col>
+              <Col>
+                <Button variant="primary" type="submit">
+                  Buscar
+                </Button>
+              </Col>
+            </Row>
+
           </Form>
 
           <Table striped bordered hover>

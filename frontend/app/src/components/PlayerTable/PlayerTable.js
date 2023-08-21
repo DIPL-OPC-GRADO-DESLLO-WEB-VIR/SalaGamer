@@ -25,6 +25,12 @@ export default function PlayerTable() {
   const handleAward = async (player) => {
     navigate(`/AwardxPlayer/${player.id}/${player.hour_played}/${player.nombres}`);
   };
+  const handleHoursexpire = async (player) => {
+    navigate(`/HoursexpirePage/${player.id}`);
+  };
+  const handleAwardclaimed = async (player) => {
+    navigate(`/AwardclaimedPage/${player.id}`);
+  };
   const handlePlusHour = async (player) => {
     MySwal.fire({
       title: `Cuantas horas jugó ${player.nombres}`,
@@ -33,7 +39,7 @@ export default function PlayerTable() {
         autocapitalize: 'off'
       },
       showCancelButton: true,
-      confirmButtonText: 'Look up',
+      confirmButtonText: 'Confirmacion',
       showLoaderOnConfirm: true,
       preConfirm: (hour_numb) => {
         if (!hour_numb || 0 === hour_numb.trim().length) {
@@ -119,7 +125,7 @@ export default function PlayerTable() {
                   <Button variant="success" onClick={() => { handlePlusHour(player) }} data-placement="top" title="Agregar Hora">{' '}
                     <FaCalendarPlus />
                   </Button>
-                  <Button variant="warning" data-placement="top" title="Horas para vencer">{' '}
+                  <Button variant="warning" data-placement="top" onClick={() => { handleHoursexpire(player) }} title="Horas para vencer">{' '}
                     <FaHourglassEnd />
                   </Button>
                   {player.hour_played > 0 ? (
@@ -136,7 +142,7 @@ export default function PlayerTable() {
                       <FaAward />
                     </Button>
                   )}
-                  <Button variant="info" data-toggle="tooltip" data-placement="top" title="Premios reclamados" >{' '}
+                  <Button variant="info" onClick={() => { handleAwardclaimed(player) }} data-toggle="tooltip" data-placement="top" title="Premios reclamados" >{' '}
                     <FaHistory />
                   </Button>
                 </tr>

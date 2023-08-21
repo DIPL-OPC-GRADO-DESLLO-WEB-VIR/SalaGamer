@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Alert, Badge, Button, Card, Col, Row } from 'react-bootstrap'
 import { FaAward } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content';
 export default function CardAward(params) {
@@ -9,6 +10,7 @@ export default function CardAward(params) {
   const url = process.env.REACT_APP_API_BASE_URL;
   const MySwal = withReactContent(Swal)
   const [awards, setAwards] = useState([])
+  const navigate = useNavigate();
   useEffect(() => {
     fetchAwards()
   }, [])
@@ -24,21 +26,52 @@ export default function CardAward(params) {
   const handleActiveAwards = (award) => {
     console.log(award)
     MySwal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
+      title: 'Premio',
+      text: "Desea el premio?",
+      icon: 'success',
       showCancelButton: true,
       cancelButtonColor: '#d33',
       confirmButtonColor: '#3085d6',
 
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Aceptar'
     }).then((result) => {
       if (result.isConfirmed) {
-        MySwal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
+        params = {
+          "regulated_hours": award.id,
+          "regulated_hours_award": award.point,
+          "fk_id_player": id,
+          "fk_id_employee": 42,
+          "fk_id_awards": award.id
+        }
+        console.log(params)
+        axios.post(`${url}api/player_x_awards`, params).then(res => {
+          if (res.status === 201) {
+            MySwal.fire({
+              icon: 'success',
+              title: 'Premios',
+              text: 'Se agrego La hora!',
+
+            })
+            // fetchPlayer()
+            navigate('/PlayerPage')
+          }
+        }).catch(
+          (error) => {
+            console.error(error)
+            if (error.response && error.response.status === 400) {
+              MySwal.fire({
+                icon: 'warning',
+                title: '!Alerta',
+                text: error.response.data.message || 'Error 400: Bad Request',
+              });
+            }
+          }
         )
+        // MySwal.fire(
+        //   'Deleted!',
+        //   'Your file has been deleted.',
+        //   'success'
+        // )
       }
     })
   }
