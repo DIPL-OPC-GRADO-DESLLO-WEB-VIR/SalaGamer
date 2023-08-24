@@ -70,6 +70,16 @@ switch ($requestMethod) {
             }
             $awards_controller->getAllDataId($queryParams['id']);
         }
+        if ($requestUri_array[0] === '/api/playerxawards') {
+            // Obtener los parámetros enviados a través de la URL
+            $queryParams = array();
+            if (strpos($requestUri, '?') !== false) {
+                $queryString = parse_url($requestUri, PHP_URL_QUERY);
+                parse_str($queryString, $queryParams);
+            }
+            // die($queryParams['id']);
+            $player_x_awardsController->getAllDataPlayer($queryParams['id']);
+        }
         break;
     case 'POST':
         if ($requestUri === '/api/users') {

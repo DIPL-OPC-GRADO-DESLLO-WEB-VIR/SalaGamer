@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import Container from '../Container/Container';
 import { UseFetch } from '../../UseFetch';
 import { Card, Button, Form, Col } from 'react-bootstrap';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 // import url from "../../config"
 import axios from "axios";
 export default function FormRegisterClient() {
+  const MySwal = withReactContent(Swal)
   const url = process.env.REACT_APP_API_BASE_URL;
-  // const url = import.meta.env.REACT;
-  // console.log(process.env['REACT_APP_API_URL'])
-  // console.log(process.env.REACT_APP_API_URl)
-  // const url = "http://localhost";
   const { data } = UseFetch(`${url}api/users`, null);
   const [formData, setFormData] = useState({
     "id": "1",
@@ -25,13 +24,29 @@ export default function FormRegisterClient() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Aquí puedes utilizar los valores de formData como desees
-    console.log(formData);
     axios.post(`${url}api/users`, formData).then((result) => {
+      if (result.status === 201) {
+        // navigate("/HomePerfilPage");
+        MySwal.fire({
+          icon: 'success',
+          title: 'Usuario Nuevo',
+          text: `Se agrego El usuario ${formData.nombres}`,
+
+        })
+        setFormData(
+          {
+            "nombres": "",
+            "email": "",
+            "celular": "",
+            "fk_tipo_user": "1",
+            "passworld": null
+          }
+        )
+      }
 
     }).catch((err) => {
       setFormData(
         {
-          "id": "1",
           "nombres": "",
           "email": "",
           "celular": "",

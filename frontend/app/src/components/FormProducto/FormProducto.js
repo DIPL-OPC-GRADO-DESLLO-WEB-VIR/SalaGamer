@@ -61,6 +61,7 @@ export default function FormProducto() {
         })
       }
     } catch (error) {
+      debugger
       console.error(error);
       if (error.response && error.response.status === 400) {
         MySwal.fire({

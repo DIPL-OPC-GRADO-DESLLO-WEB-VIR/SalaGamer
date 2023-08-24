@@ -19,26 +19,31 @@ import { BrowserRouter, Route, Routes, Redirect } from "react-router-dom";
 const token = localStorage.getItem('token');
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Header token={token} />
-        <Routes>
-          <Route path="/Inicio" element={<Home />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/FormRegister" element={<FormRegister />} />
-          <Route path="/LoginPage" element={<LoginPage />} />
-          <Route path="/HomePerfilPage" element={<HomePerfilPage />} />
-          <Route path="/CrearProductoPage" element={<CrearProductoPage />} />
-          <Route path="/PremiosPage" element={<PremiosPage />} />
-          <Route path="/UpdatePremiosPage/:id" element={<UpdatePremiosPage />} />
-          <Route path="/AwardclaimedPage/:id" element={<AwardclaimedPage />} />
-          <Route path="/HoursexpirePage/:id" element={<HoursexpirePage />} />
-          <Route path="/AwardxPlayer/:id/:hour/:name" element={<AwardxPlayer />} />
-          <Route path="/PlayerPage" element={<PlayerPage />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </div>
+    <>
+      <div className="App">
+        <BrowserRouter>
+          <Header token={token} />
+          <Routes>
+            <Route path="/Inicio" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/FormRegister" element={<FormRegister />} />
+            <Route path="/LoginPage" element={<LoginPage />} />
+            <Route path="/HomePerfilPage" element={<HomePerfilPage />} />
+            <Route path="/CrearProductoPage" element={<CrearProductoPage />} />
+            <Route path="/PremiosPage" element={<PremiosPage />} />
+            <Route path="/UpdatePremiosPage/:id" element={<UpdatePremiosPage />} />
+            <Route path="/AwardclaimedPage/:id" element={<AwardclaimedPage />} />
+            <Route path="/HoursexpirePage/:id" element={<HoursexpirePage />} />
+            <Route path="/AwardxPlayer/:id/:hour/:name" element={<AwardxPlayer />} />
+            <Route path="/PlayerPage" element={<PlayerPage />} />
+          </Routes>
+
+        </BrowserRouter>
+
+      </div>
+      <Footer />
+    </>
+
   );
 }
 

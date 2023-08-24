@@ -26,6 +26,29 @@ class Player_x_awards
 
         return $data;
     }
+    public function getAllDataplayer($id)
+    {
+        $query = "SELECT awards.id, regulated_hours,
+                        gruop_hour,
+                        fk_id_player,
+                        fk_id_awards,
+                        name_award,
+                        register_date
+                 FROM player_x_awards 
+                 LEFT JOIN awards ON fk_id_awards = awards.id
+                 WHERE fk_id_player = $id;
+                     ";
+        $result = $this->connection->query($query);
+
+        $data = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+
+        return $data;
+    }
 
     public function insertData($datos)
     {
@@ -64,11 +87,6 @@ class Player_x_awards
                 }
             }
             $result_hour_total = $sum_hour_played - $regulated_hours_award;
-            // print_r($result_hour_total);
-            // print_r($sum_hour_played);
-            // print_r($expiration_date);
-            // print_r($gruop_hour);
-            // print_r(json_encode($data));
             $gruop_hour_string = json_encode($gruop_hour);
             $stmt = $this->connection->prepare("INSERT INTO player_x_awards (fk_id_awards, fk_id_player, regulated_hours, gruop_hour) VALUES (?, ?, ?,?)");
             $stmt->bind_param("iiis", $fk_id_awards, $fk_id_player, $sum_hour_played, $gruop_hour_string);

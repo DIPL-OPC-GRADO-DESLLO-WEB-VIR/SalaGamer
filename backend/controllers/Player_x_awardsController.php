@@ -15,7 +15,12 @@ class Player_x_awardsController
         header('Content-Type: application/json');
         echo json_encode($data);
     }
-
+    public function getAllDataPlayer($id)
+    {
+        $data = $this->model->getAllDataplayer($id);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
     public function insertData()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

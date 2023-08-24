@@ -44,8 +44,8 @@ class Awards
 
         $data = array();
         if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
+            if ($row = $result->fetch_assoc()) {
+                $data = $row;
             }
         }
 

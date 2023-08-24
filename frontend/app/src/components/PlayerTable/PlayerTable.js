@@ -125,9 +125,9 @@ export default function PlayerTable() {
                   <Button variant="success" onClick={() => { handlePlusHour(player) }} data-placement="top" title="Agregar Hora">{' '}
                     <FaCalendarPlus />
                   </Button>
-                  <Button variant="warning" data-placement="top" onClick={() => { handleHoursexpire(player) }} title="Horas para vencer">{' '}
+                  {/* <Button variant="warning" data-placement="top" onClick={() => { handleHoursexpire(player) }} title="Horas para vencer">{' '}
                     <FaHourglassEnd />
-                  </Button>
+                  </Button> */}
                   {player.hour_played > 0 ? (
                     <Button
                       variant="primary"

@@ -6,20 +6,28 @@ export default function Footer() {
     <>
 
 
-      {/* <footer className="p-3 mb-2 bg-info text-white">
+      <footer className="p-3 mb-2 bg-info text-white">
         <Container>
           <Row>
             <Col>
-              <p>Tu contenido de pie de página aquí</p>
+              <h2 class="danger">Bienvenido a la Sala de Juegos</h2>
+              <p class="lead">¡Diviértete jugando nuestros emocionantes juegos!</p>
             </Col>
             <Col>
-              <p>Tu contenido de pie de página aquí</p>
+              <h2>Redes Sociales</h2>
+              <ul class="list-unstyled">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+              </ul>
             </Col>
             <Col>
-              <p>Tu contenido de pie de página aquí</p>
+              <p>&copy; 2023 Sala de Juegos. Todos los derechos reservados.</p>
+              <p>Autor: Miguel Angel Cifuentes Osorio</p>
+              <p>Contacto: info@saladejuegos.com</p>
             </Col>
           </Row>
         </Container>
-      </footer> */}
+      </footer>
     </>);
 }

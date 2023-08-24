@@ -1,15 +1,32 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Button, Card } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-export default function FormAward() {
+export default function FormAward(params) {
+  const { id } = params;
   const url = process.env.REACT_APP_API_BASE_URL;
+  const [award_id, setAwardId] = useState('');
   const [productName, setProductName] = useState('');
   const [imageBase64, setImageBase64] = useState('');
   const [horas_puntos, setHoras_puntos] = useState('');
   const MySwal = withReactContent(Swal)
+  useEffect(() => { fetchAward() }, []);
+  const fetchAward = async () => {
+    // setIsLoading(true);
+    try {
+      const response = await axios.get(`${url}api/wards_get?id=${id}`);
+      console.table(response.data)
+      setProductName(response.data.name_award)
+      setAwardId(response.data.id)
+      setImageBase64(response.data.base64)
+      setHoras_puntos(response.data.point)
+
+    } catch (error) {
+      console.log('Error al obtener los awardos:', error);
+    }
+  };
   const handleInputChange = (e) => {
     setProductName(e.target.value);
   };
@@ -32,7 +49,8 @@ export default function FormAward() {
 
 
     try {
-      const response = await axios.post(`${url}api/wards`, {
+      const response = await axios.put(`${url}api/wards`, {
+        id: award_id,
         point: horas_puntos,
         name_award: productName,
         base64: imageBase64,
@@ -42,7 +60,7 @@ export default function FormAward() {
         MySwal.fire({
           icon: 'success',
           title: 'Premios',
-          text: 'Se agrego un nuevo premio!',
+          text: 'Se Actualizo un nuevo premio!',
 
         })
         setProductName('');
@@ -51,6 +69,13 @@ export default function FormAward() {
       }
     } catch (error) {
       console.error(error);
+      if (error.response && error.response.status === 400) {
+        MySwal.fire({
+          icon: 'warning',
+          title: '!Alerta El premio!' + productName,
+          text: error.response.data.message || 'Error 400: Bad Request',
+        });
+      }
     }
     // MySwal.fire({
     //   icon: 'error',

@@ -23,6 +23,29 @@ class player_x_awards
 
         return $data;
     }
+    public function getAllDataplayer($id)
+    {
+        $query = "SELECT regulated_hours,
+                        gruop_hour,
+                        fk_id_player,
+                        fk_id_awards,
+                        name_award,
+                        register_date
+                 FROM player_x_awards 
+                 LEFT JOIN awards ON fk_id_awards = awards.id
+                 WHERE fk_id_player = $id;
+                     ";
+        $result = $this->connection->query($query);
+
+        $data = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+
+        return $data;
+    }
 
     public function insertData($datos)
     {

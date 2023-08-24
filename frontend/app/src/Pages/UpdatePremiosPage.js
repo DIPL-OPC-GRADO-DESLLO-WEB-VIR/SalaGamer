@@ -22,7 +22,7 @@ const UpdatePremiosPage = () => {
                 <h1>User Detail</h1>
                 <p>ID: {id}</p>
             </div> */}
-            <FormAward />
+            <FormAward id={id} />
 
         </Container>
 
