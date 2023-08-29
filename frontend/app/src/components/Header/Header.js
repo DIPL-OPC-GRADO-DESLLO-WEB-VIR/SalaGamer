@@ -49,9 +49,14 @@ export default function Header() {
             </NavLink> */}
             <Nav className="mr-auto">
               {/* <Nav.Link href="/HomePerfilPage">Home</Nav.Link> */}
+              <Nav.Link href="/ConsolaPage">Consolas</Nav.Link>
+              <Nav.Link href="/ConsolaPage">Compras Directas</Nav.Link>
               {/* <Nav.Link href="#features">Features</Nav.Link> */}
               {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
-
+              <NavDropdown title="Productos" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/PlayerPage">Jugadores</NavDropdown.Item>
+                <NavDropdown.Item href="/FormRegister">Crear Jugador</NavDropdown.Item>
+              </NavDropdown>
               <NavDropdown title="Jugadores" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/PlayerPage">Jugadores</NavDropdown.Item>
                 <NavDropdown.Item href="/FormRegister">Crear Jugador</NavDropdown.Item>

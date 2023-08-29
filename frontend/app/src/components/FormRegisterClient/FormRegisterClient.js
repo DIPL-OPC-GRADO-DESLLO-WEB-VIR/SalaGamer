@@ -60,7 +60,7 @@ export default function FormRegisterClient() {
   return (
     <div>
       <Container>
-        <Card>
+        <Card bg='dark' text='light'>
           <Card.Header>Formulario de Registro</Card.Header>
           <Card.Body>
             <Form onSubmit={handleSubmit}>

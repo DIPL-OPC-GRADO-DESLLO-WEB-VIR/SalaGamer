@@ -1,6 +1,7 @@
 .App {
   /* Ajusta la ruta de la imagen y otros estilos según tus preferencias */
   background-image: url("./assets/img/3179813.svg");
+  /* background-color: #292c3a; */
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
