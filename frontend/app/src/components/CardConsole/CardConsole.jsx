@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/joy/Card";
 import CardActions from "@mui/material/CardActions";
-// import CardContent from "@mui/material/CardContent";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/joy/CardContent";
@@ -12,34 +11,23 @@ import useSound from "use-sound";
 import sonido from "../../assets/mp3/game_over.mp3";
 import image from "../../assets/img/console_xbox.jpg";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { ButtonGroup } from "@mui/joy";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-
-export default function CardConsole(props) {
-  // const [play] = useSound(sonido);
-  const [time, setTime] = useState(60); // Inicializa el tiempo en 3600 segundos (1 hora)
+const CardConsole = ({ title, timecard, start_time }) => {
+  const [time, setTime] = useState(60);
   const [startTime, setStartTime] = useState(null);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [color, setColor] = useState("light");
-  const { title, timecard } = props;
 
   useEffect(() => {
-    if (startTime) {
+    if (start_time && timecard > 0) {
       const timer = setInterval(() => {
         const currentTime = Math.floor(
-          (new Date().getTime() - startTime.getTime()) / 1000
+          (new Date().getTime() - new Date(start_time).getTime()) / 1000
         );
         const remainingTime = timecard - currentTime;
-
         const hours = Math.floor(remainingTime / 3600);
         const minutes = Math.floor((remainingTime % 3600) / 60);
         const seconds = remainingTime % 60;
@@ -49,24 +37,19 @@ export default function CardConsole(props) {
           setSeconds(seconds);
           setTime(remainingTime);
         }
-
         if (remainingTime === 0) {
-          playSound(); // Reproduce el sonido cuando el tiempo se agota
+          playSound();
           setHours(0);
           setMinutes(0);
           setSeconds(0);
           setColor("danger");
         }
       }, 1000);
-
       return () => {
         clearInterval(timer);
       };
     }
-    // else {
-    //   setStartTime(new Date());
-    // }
-  }, [startTime]);
+  }, [start_time, timecard]);
 
   const handleStartTimer = () => {
     setStartTime(new Date());
@@ -74,6 +57,10 @@ export default function CardConsole(props) {
 
   const playSound = () => {
     new Audio(sonido).play();
+  };
+
+  const formatTime = (time) => {
+    return time < 10 ? `0${time}` : time;
   };
 
   return (
@@ -93,21 +80,29 @@ export default function CardConsole(props) {
           {title}
         </Typography>
         <Typography variant="h5">
-          <AccessTimeIcon /> 0{hours}:0{minutes}:0{seconds}
+          <AccessTimeIcon /> {formatTime(hours)}:{formatTime(minutes)}:
+          {formatTime(seconds)}
         </Typography>
+        {start_time && (
+          <Typography variant="body2">
+            Hora de inicio: {new Date(start_time).toLocaleTimeString()}
+          </Typography>
+        )}
       </CardContent>
-      <CardOverflow>
-        <Button
-          variant="solid"
-          color="primary"
-          // size="lg"
-          onClick={() => {
-            handleStartTimer();
-          }}
-        >
-          Comenzar
-        </Button>
+      <CardOverflow sx={{ bgcolor: "background.level1" }}>
+        <CardActions buttonFlex="1">
+          {/* <ButtonGroup> */}
+          <Button variant="outlined" onClick={handleStartTimer}>
+            Comenzar
+          </Button>
+          <Button color="danger" onClick={function () {}} variant="outlined">
+            Seleccionar
+          </Button>
+          {/* </ButtonGroup> */}
+        </CardActions>
       </CardOverflow>
     </Card>
   );
-}
+};
+
+export default CardConsole;
