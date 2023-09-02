@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/joy/Card";
 import CardActions from "@mui/material/CardActions";
@@ -12,15 +12,32 @@ import sonido from "../../assets/mp3/game_over.mp3";
 import image from "../../assets/img/console_xbox.jpg";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { ButtonGroup } from "@mui/joy";
-
-const CardConsole = ({ title, timecard, start_time }) => {
+import { DataContext } from "../../contexts/DataContextConsola";
+const CardConsole = ({
+  id,
+  title,
+  timecard,
+  start_time,
+  crono_hour,
+  crono_minute,
+  end_time,
+}) => {
   const [time, setTime] = useState(60);
   const [startTime, setStartTime] = useState(null);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [color, setColor] = useState("light");
-
+  const {
+    consola,
+    setproductos,
+    hora,
+    minuto,
+    setTiempoHora,
+    setTiempoMinutos,
+    productos,
+    setConsole,
+  } = useContext(DataContext);
   useEffect(() => {
     if (start_time && timecard > 0) {
       const timer = setInterval(() => {
@@ -62,7 +79,22 @@ const CardConsole = ({ title, timecard, start_time }) => {
   const formatTime = (time) => {
     return time < 10 ? `0${time}` : time;
   };
-
+  const handleCronometer = () => {
+    setTiempoHora(crono_hour);
+    setTiempoMinutos(crono_minute);
+    let ConsolaCard = {
+      id: id,
+      title: title,
+      timecard: timecard,
+      start_time: start_time,
+      crono_hour: crono_hour,
+      crono_minute: crono_minute,
+      pay: 0,
+      end_time: "00:00:00",
+    };
+    setConsole(ConsolaCard);
+  };
+  // setTiempoHora(crono_hour);
   return (
     <Card color={color} invertedColors={false} variant="outlined">
       <CardOverflow>
@@ -88,6 +120,14 @@ const CardConsole = ({ title, timecard, start_time }) => {
             Hora de inicio: {new Date(start_time).toLocaleTimeString()}
           </Typography>
         )}
+        {end_time && (
+          <Typography variant="body2">Hora de Final: {end_time}</Typography>
+        )}
+        {crono_hour && (
+          <Typography variant="body2">
+            Tiempo: {crono_hour}:{crono_minute}
+          </Typography>
+        )}
       </CardContent>
       <CardOverflow sx={{ bgcolor: "background.level1" }}>
         <CardActions buttonFlex="1">
@@ -95,7 +135,13 @@ const CardConsole = ({ title, timecard, start_time }) => {
           <Button variant="outlined" onClick={handleStartTimer}>
             Comenzar
           </Button>
-          <Button color="danger" onClick={function () {}} variant="outlined">
+          <Button
+            color="danger"
+            onClick={function () {
+              handleCronometer();
+            }}
+            variant="outlined"
+          >
             Seleccionar
           </Button>
           {/* </ButtonGroup> */}

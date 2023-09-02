@@ -22,9 +22,13 @@ const CardConsolaTime = () => {
         {consolas.map((consola, index) => (
           <Grid xs={6} md={3} key={index}>
             <CardConsole
+              id={consola.id}
               title={consola.title}
               timecard={consola.timecard}
               start_time={consola.start_time}
+              crono_hour={consola.crono_hour}
+              crono_minute={consola.crono_minute}
+              end_time={consola.end_time}
             />
           </Grid>
         ))}

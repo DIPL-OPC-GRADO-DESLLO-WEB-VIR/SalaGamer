@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-// import { Card, Form, Button, Table, Row, Col } from "react-bootstrap";
 import {
   Card,
   FormControl,
@@ -20,6 +19,7 @@ import {
   Typography,
   FormLabel,
   Divider,
+  CardActions,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -29,21 +29,26 @@ import TablaProductos from "../TablaProductos";
 import { DataContext } from "../../contexts/DataContextConsola";
 
 export default function TabConsoleShooping() {
-  // const { contextData, setcontextData } = useContext(DataContext);
-  const { consola, setproductos } = useContext(DataContext);
-  const [tiempoHora, setTiempoHora] = useState("");
-  const [tiempoMinutos, setTiempoMinutos] = useState("");
-  const [productos, setProductos] = useState("");
+  const {
+    Consola,
+    setproductos,
+    hora,
+    minuto,
+    setTiempoHora,
+    setTiempoMinutos,
+    productos,
+    setConsoles,
+  } = useContext(DataContext);
+  // const [productos, setProductos] = useState("");
   const [registros, setRegistros] = useState([]);
-  const [age, setAge] = React.useState("");
-  const [title, setTitle] = React.useState("");
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  // const [tiempoHora, setTiempoHora] = useState("");
+  // const [tiempoMinutos, setTiempoMinutos] = useState("");
+
   useEffect(() => {
-    // let { consola } = contextData;
-    setTitle(`Consola: ${consola} 😍`);
-    // setproductos();
+    setTiempoHora("");
+    setTiempoMinutos("");
+    // console.log(consola);
+    // setProductos("");
   }, []);
   const horas = Array.from({ length: 24 }, (_, i) =>
     i.toString().padStart(2, "0")
@@ -52,28 +57,56 @@ export default function TabConsoleShooping() {
     (i * 15).toString().padStart(2, "0")
   ); // Arreglo de minutos en incrementos de 15
   const handleSubmit = (e) => {
-    setproductos();
+    console.log("Submit");
     e.preventDefault();
-    const nuevoRegistro = {
-      tiempo: `${tiempoHora}:${tiempoMinutos}`,
-      productos: productos,
-    };
-    setRegistros([...registros, nuevoRegistro]);
-    setTiempoHora("");
-    setTiempoMinutos("");
-    setProductos("");
+    // const nuevoRegistro = {
+    //   // tiempo: `${consola.hora}:${consola.minutos}`,
+    //   // productos: productos,
+
+    // };
+    const segundos = parseInt(hora) * 3600 + parseInt(minuto) * 60;
+    // console.log(segundos);
+    Consola.timecard = segundos;
+    Consola.crono_hour = hora;
+    Consola.crono_minute = minuto;
+    Consola.start_time = new Date();
+
+    // Calcular la hora de finalización sumando los segundos adicionales
+    const horaFinalizacion = new Date(
+      Consola.start_time.getTime() + segundos * 1000
+    );
+    // Obtener los componentes de la hora de finalización
+    const hora2 = horaFinalizacion.getHours();
+    const minutos2 = horaFinalizacion.getMinutes();
+    const segundos2 = horaFinalizacion.getSeconds();
+
+    // Imprimir la hora de finalización
+    // console.log(
+    //   `La hora de finalización será: ${hora2}:${minutos2}:${segundos2}`
+    // );
+    Consola.end_time = `${hora2}:${minutos2}:${segundos2}`;
+    // console.log(Consola);
+    setConsoles(Consola);
+    // setRegistros([...registros, nuevoRegistro]);
+    // setProductos("");
   };
+
+  const handleProductosChange = (e) => {
+    // setProductos(e.target.value);
+  };
+
   return (
     <div>
       <Card>
         <CardHeader
           color="light"
-          title={`consola ${consola}`}
+          title={`${Consola.title}`}
           sx={{ color: "text.primary" }}
         />
         <Divider variant="middle" />
-        <CardContent>
-          <form component="form" onSubmit={handleSubmit}>
+
+        <form component="form" onSubmit={handleSubmit}>
+          <CardContent>
             <Grid>
               <FormLabel>Tiempo</FormLabel>
               <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -81,7 +114,7 @@ export default function TabConsoleShooping() {
                 <Select
                   labelId="select-label"
                   id="select"
-                  value={tiempoHora}
+                  value={hora}
                   label="Minutos"
                   onChange={(e) => setTiempoHora(e.target.value)}
                 >
@@ -95,9 +128,10 @@ export default function TabConsoleShooping() {
               <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="demo-simple-select-label">Minutos</InputLabel>
                 <Select
+                  defaultValue={30}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={tiempoMinutos}
+                  value={minuto}
                   label="Minutos"
                   onChange={(e) => setTiempoMinutos(e.target.value)}
                 >
@@ -109,24 +143,32 @@ export default function TabConsoleShooping() {
                 </Select>
               </FormControl>
             </Grid>
-            <FormControl>
+            {/* <FormControl>
               <label htmlFor="productos">Productos</label>
               <input
                 type="text"
                 placeholder="Ingrese los productos"
                 value={productos}
-                onChange={(e) => setProductos(e.target.value)}
+                onChange={handleProductosChange}
               />
-            </FormControl>
-            <br />
-            <Button variant="contained" color="error" type="submit">
+            </FormControl> */}
+          </CardContent>
+          <br />
+          <CardActions>
+            <Button
+              variant="contained"
+              sx={{ width: "100% " }}
+              color="error"
+              size="large"
+              type="submit"
+            >
               Registrar
             </Button>
-          </form>
-        </CardContent>
+          </CardActions>
+        </form>
       </Card>
       <br />
-      <TablaProductos registros={registros} />
+      <TablaProductos registros={productos} />
       <br />
       <CardTotalConsole />
       <br />

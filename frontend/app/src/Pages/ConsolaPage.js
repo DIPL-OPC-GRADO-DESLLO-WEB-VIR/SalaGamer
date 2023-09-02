@@ -10,11 +10,11 @@ import Button from '@mui/material/Button';
 export default function ConsolaPage() {
     const [consolas, setconsolas] = useState([]);
     useEffect(() => {
-        let x = [
-            { name: "sss", description: "sasa" },
-            { name: "sss", description: "sasa" }
-        ]
-        console.table(x);
+        // let x = [
+        //     { name: "sss", description: "sasa" },
+        //     { name: "sss", description: "sasa" }
+        // ]
+        // console.table(x);
     }, [])
     return (
         <div>
