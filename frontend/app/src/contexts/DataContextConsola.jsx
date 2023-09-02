@@ -94,7 +94,7 @@ export function DataContextConsola(props) {
   };
   const setConsoles = (consola) => {
     const ConsolaP = initialState.consolas.find((c) => c.id === consola.id);
-    ConsolaP.crono_hour = consola;
+    ConsolaP.crono_hour = consola.crono_hour;
     ConsolaP.crono_minute = consola.crono_minute;
     ConsolaP.timecard = consola.timecard;
     ConsolaP.start_time = consola.start_time;
